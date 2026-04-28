@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zero to GenLayer 🚀 — Full Tutorial + Starter Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b12;
+  --bg2: #0d1120;
+  --bg3: #111827;
+  --surface: #151e30;
+  --surface2: #1c2740;
+  --border: rgba(99,179,237,0.12);
+  --border2: rgba(99,179,237,0.22);
+  --cyan: #38bdf8;
+  --cyan2: #0ea5e9;
+  --green: #34d399;
+  --purple: #a78bfa;
+  --orange: #fb923c;
+  --red: #f87171;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --muted2: #94a3b8;
+  --card-glow: rgba(56,189,248,0.06);
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16px;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(–bg)}
+::-webkit-scrollbar-thumb{background:var(–cyan2);border-radius:2px}
+
+/* NAVBAR */
+nav{
+position:fixed;top:0;left:0;right:0;z-index:1000;
+background:rgba(8,11,18,0.85);
+backdrop-filter:blur(20px);
+border-bottom:1px solid var(–border);
+padding:0 24px;
+height:60px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+font-family:var(–font-mono);
+font-size:14px;font-weight:700;
+color:var(–cyan);
+letter-spacing:0.05em;
+}
+.nav-logo span{color:var(–text);opacity:0.5}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{
+color:var(–muted2);font-size:13px;text-decoration:none;
+transition:color 0.2s;font-weight:500;
+}
+.nav-links a:hover{color:var(–cyan)}
+.nav-cta{
+background:var(–cyan);color:#080b12;
+padding:7px 18px;border-radius:6px;
+font-size:13px;font-weight:700;text-decoration:none;
+transition:opacity 0.2s;
+}
+.nav-cta:hover{opacity:0.85}
+@media(max-width:768px){
+.nav-links{display:none}
+.nav-logo{font-size:12px}
+}
+
+/* PROGRESS */
+.progress{
+position:fixed;top:60px;left:0;height:2px;
+background:linear-gradient(90deg,var(–cyan),var(–purple));
+width:0%;z-index:999;transition:width 0.1s;
+}
+
+/* HERO */
+.hero{
+min-height:100vh;
+display:grid;place-items:center;
+text-align:center;
+padding:100px 24px 80px;
+position:relative;overflow:hidden;
+}
+.hero-grid{
+position:absolute;inset:0;
+background-image:
+linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+background-size:60px 60px;
+mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+.hero-glow{
+position:absolute;inset:0;
+background:radial-gradient(ellipse 60% 50% at 50% 30%, rgba(56,189,248,0.08) 0%, transparent 70%);
+}
+.hero-content{position:relative;z-index:1;max-width:900px;margin:0 auto}
+.hero-badge{
+display:inline-flex;align-items:center;gap:8px;
+background:rgba(56,189,248,0.08);
+border:1px solid rgba(56,189,248,0.2);
+color:var(–cyan);
+padding:6px 16px;border-radius:100px;
+font-size:12px;font-weight:600;letter-spacing:0.08em;
+text-transform:uppercase;margin-bottom:32px;
+animation:fadeUp 0.6s ease both;
+}
+.badge-dot{
+width:6px;height:6px;border-radius:50%;
+background:var(–cyan);
+animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero h1{
+font-family:‘Space Grotesk’,sans-serif;
+font-size:clamp(3rem,8vw,6.5rem);
+font-weight:700;
+line-height:1.0;
+letter-spacing:-0.03em;
+margin-bottom:24px;
+animation:fadeUp 0.6s 0.1s ease both;
+}
+.hero h1 .grad{
+background:linear-gradient(135deg,var(–cyan) 0%,var(–purple) 50%,var(–green) 100%);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+font-size:clamp(1rem,2.5vw,1.25rem);
+color:var(–muted2);
+max-width:580px;margin:0 auto 48px;
+font-weight:400;
+animation:fadeUp 0.6s 0.2s ease both;
+}
+.hero-buttons{
+display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+animation:fadeUp 0.6s 0.3s ease both;
+}
+.btn-primary{
+background:linear-gradient(135deg,var(–cyan2),#0369a1);
+color:#fff;padding:14px 32px;border-radius:8px;
+font-weight:700;font-size:15px;text-decoration:none;
+border:none;cursor:pointer;
+box-shadow:0 0 32px rgba(56,189,248,0.25);
+transition:transform 0.2s,box-shadow 0.2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 48px rgba(56,189,248,0.35)}
+.btn-outline{
+background:transparent;color:var(–text);
+padding:14px 32px;border-radius:8px;
+font-weight:600;font-size:15px;text-decoration:none;
+border:1px solid var(–border2);cursor:pointer;
+transition:border-color 0.2s,color 0.2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-outline:hover{border-color:var(–cyan);color:var(–cyan)}
+.hero-stats{
+display:flex;gap:48px;justify-content:center;margin-top:64px;
+animation:fadeUp 0.6s 0.4s ease both;
+}
+.stat-item{text-align:center}
+.stat-num{font-size:2rem;font-weight:700;color:var(–cyan);font-family:var(–font-mono)}
+.stat-label{font-size:12px;color:var(–muted);text-transform:uppercase;letter-spacing:0.1em}
+
+/* SECTIONS */
+section{padding:100px 24px;max-width:1100px;margin:0 auto}
+.section-tag{
+display:inline-flex;align-items:center;gap:8px;
+font-family:var(–font-mono);font-size:11px;letter-spacing:0.15em;
+text-transform:uppercase;color:var(–cyan);
+margin-bottom:16px;
+}
+.section-tag::before{content:’//’;opacity:0.5}
+h2.section-title{
+font-size:clamp(2rem,4vw,3rem);
+font-weight:700;letter-spacing:-0.02em;
+margin-bottom:16px;
+}
+.section-lead{color:var(–muted2);font-size:1.1rem;max-width:600px;margin-bottom:56px}
+
+/* QUICK START CARDS */
+.hub-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+.hub-card{
+background:var(–surface);
+border:1px solid var(–border);
+border-radius:12px;
+padding:28px;
+transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;
+position:relative;overflow:hidden;
+}
+.hub-card::before{
+content:’’;position:absolute;top:0;left:0;right:0;height:2px;
+background:linear-gradient(90deg,var(–cyan),var(–purple));
+opacity:0;transition:opacity 0.2s;
+}
+.hub-card:hover{
+transform:translateY(-4px);
+border-color:var(–border2);
+box-shadow:0 20px 40px rgba(0,0,0,0.3),0 0 20px var(–card-glow);
+}
+.hub-card:hover::before{opacity:1}
+.hub-icon{font-size:36px;margin-bottom:16px;display:block}
+.hub-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.hub-card p{font-size:0.88rem;color:var(–muted2);margin-bottom:20px;line-height:1.6}
+.hub-link{
+display:inline-flex;align-items:center;gap:6px;
+color:var(–cyan);font-size:13px;font-weight:600;text-decoration:none;
+transition:gap 0.2s;
+}
+.hub-link:hover{gap:10px}
+
+/* CONCEPTS */
+.concepts-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:24px;
+}
+.concept-card{
+background:var(–surface);
+border:1px solid var(–border);
+border-radius:16px;
+padding:36px;
+position:relative;overflow:hidden;
+}
+.concept-card.cyan-card{border-color:rgba(56,189,248,0.2)}
+.concept-card.purple-card{border-color:rgba(167,139,250,0.2)}
+.concept-glow{
+position:absolute;top:-60px;right:-60px;
+width:180px;height:180px;border-radius:50%;
+opacity:0.06;filter:blur(40px);
+}
+.cyan-card .concept-glow{background:var(–cyan)}
+.purple-card .concept-glow{background:var(–purple)}
+.concept-num{
+font-family:var(–font-mono);font-size:11px;
+letter-spacing:0.2em;text-transform:uppercase;
+color:var(–muted);margin-bottom:20px;display:block;
+}
+.concept-card h3{
+font-size:1.4rem;font-weight:700;margin-bottom:16px;
+}
+.cyan-card h3{color:var(–cyan)}
+.purple-card h3{color:var(–purple)}
+.concept-card p{font-size:0.93rem;color:var(–muted2);line-height:1.7}
+.concept-analogy{
+margin-top:20px;padding:16px;
+background:rgba(0,0,0,0.3);border-radius:8px;
+font-size:0.88rem;color:var(–muted2);
+border-left:3px solid var(–cyan);
+}
+.purple-card .concept-analogy{border-left-color:var(–purple)}
+.analogy-label{
+font-family:var(–font-mono);font-size:10px;
+color:var(–cyan);letter-spacing:0.15em;text-transform:uppercase;
+display:block;margin-bottom:6px;
+}
+.purple-card .analogy-label{color:var(–purple)}
+
+/* EQUIVALENCE TABLE */
+.eq-table{width:100%;border-collapse:collapse;margin-top:32px;font-size:14px}
+.eq-table th{
+background:var(–surface2);padding:12px 16px;
+text-align:left;font-family:var(–font-mono);font-size:11px;
+letter-spacing:0.1em;text-transform:uppercase;color:var(–muted2);
+}
+.eq-table td{padding:12px 16px;border-bottom:1px solid var(–border);vertical-align:top}
+.eq-table tr:last-child td{border-bottom:none}
+.eq-badge{
+display:inline-block;padding:2px 10px;border-radius:4px;
+font-family:var(–font-mono);font-size:12px;font-weight:600;
+}
+.badge-cyan{background:rgba(56,189,248,0.15);color:var(–cyan)}
+.badge-purple{background:rgba(167,139,250,0.15);color:var(–purple)}
+.badge-green{background:rgba(52,211,153,0.15);color:var(–green)}
+
+/* STEPS */
+.steps-wrap{display:flex;flex-direction:column;gap:0}
+.step-item{
+display:grid;grid-template-columns:auto 1fr;
+gap:0 32px;position:relative;
+}
+.step-item:not(:last-child)::after{
+content:’’;
+position:absolute;left:24px;top:60px;bottom:0;
+width:2px;background:var(–border);
+}
+.step-left{display:flex;flex-direction:column;align-items:center;padding-top:8px}
+.step-num-circle{
+width:48px;height:48px;border-radius:50%;
+background:linear-gradient(135deg,var(–cyan2),#0369a1);
+display:flex;align-items:center;justify-content:center;
+font-family:var(–font-mono);font-weight:700;font-size:14px;
+color:#fff;flex-shrink:0;
+box-shadow:0 0 20px rgba(56,189,248,0.3);
+position:relative;z-index:1;
+}
+.step-right{padding:4px 0 48px}
+.step-right h3{font-size:1.15rem;font-weight:700;margin-bottom:8px}
+.step-right p{font-size:0.93rem;color:var(–muted2);line-height:1.7}
+.step-tag{
+display:inline-block;margin-bottom:8px;
+font-family:var(–font-mono);font-size:10px;
+color:var(–cyan);letter-spacing:0.15em;text-transform:uppercase;
+}
+
+/* CODE BLOCKS */
+.code-wrap{
+margin:24px 0;border-radius:12px;overflow:hidden;
+border:1px solid var(–border);
+box-shadow:0 8px 32px rgba(0,0,0,0.3);
+}
+.code-header{
+background:#0a0f1a;
+padding:12px 20px;
+display:flex;align-items:center;justify-content:space-between;
+border-bottom:1px solid var(–border);
+}
+.code-dots{display:flex;gap:6px}
+.code-dot{width:10px;height:10px;border-radius:50%}
+.code-dot:nth-child(1){background:#ff5f56}
+.code-dot:nth-child(2){background:#ffbd2e}
+.code-dot:nth-child(3){background:#27c93f}
+.code-filename{
+font-family:var(–font-mono);font-size:12px;color:var(–muted2);
+letter-spacing:0.05em;
+}
+.copy-btn{
+background:rgba(56,189,248,0.1);
+border:1px solid rgba(56,189,248,0.2);
+color:var(–cyan);
+padding:4px 14px;border-radius:6px;
+font-size:12px;font-weight:600;cursor:pointer;
+transition:background 0.2s;font-family:var(–font-mono);
+}
+.copy-btn:hover{background:rgba(56,189,248,0.2)}
+.copy-btn.copied{color:var(–green);border-color:rgba(52,211,153,0.3)}
+pre{
+background:#0a0f1a;
+color:#cbd5e1;
+padding:28px;
+overflow-x:auto;
+font-family:var(–font-mono);
+font-size:13.5px;line-height:1.85;
+tab-size:4;
+margin:0;
+}
+.kw{color:#7dd3fc}
+.fn{color:#86efac}
+.st{color:#fcd34d}
+.cm{color:#475569;font-style:italic}
+.de{color:#c084fc}
+.nu{color:#fb923c}
+.op{color:#94a3b8}
+code{
+font-family:var(–font-mono);
+background:rgba(56,189,248,0.1);color:var(–cyan);
+padding:2px 7px;border-radius:4px;font-size:0.85em;
+}
+pre code{background:transparent;color:inherit;padding:0;font-size:inherit}
+
+/* FRONTEND JS */
+.js-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:32px}
+.js-card{
+background:var(–surface);border:1px solid var(–border);
+border-radius:12px;overflow:hidden;
+}
+.js-card-header{
+padding:14px 20px;
+background:var(–surface2);
+border-bottom:1px solid var(–border);
+font-family:var(–font-mono);font-size:12px;color:var(–cyan);
+font-weight:600;
+}
+.js-card pre{font-size:12px;padding:20px}
+
+/* ARCHITECTURE */
+.arch-flow{
+display:flex;align-items:center;
+flex-wrap:wrap;gap:0;
+margin:40px 0;
+justify-content:center;
+}
+.arch-node{
+background:var(–surface);
+border:1px solid var(–border2);
+padding:14px 20px;border-radius:10px;
+text-align:center;min-width:100px;
+transition:border-color 0.2s,transform 0.2s;
+}
+.arch-node:hover{border-color:var(–cyan);transform:scale(1.04)}
+.arch-node-icon{font-size:22px;display:block;margin-bottom:4px}
+.arch-node-label{font-size:12px;font-weight:600;color:var(–text)}
+.arch-node-sub{font-size:10px;color:var(–muted);font-family:var(–font-mono)}
+.arch-node.highlight{
+border-color:rgba(56,189,248,0.4);
+background:rgba(56,189,248,0.06);
+}
+.arch-node.green-node{
+border-color:rgba(52,211,153,0.4);
+background:rgba(52,211,153,0.06);
+}
+.arch-arrow{color:var(–muted);font-size:20px;padding:0 8px;display:flex;align-items:center}
+@media(max-width:700px){.arch-flow{flex-direction:column}.arch-arrow{transform:rotate(90deg)}}
+
+/* MINI PROJECT */
+.project-card{
+background:linear-gradient(135deg,rgba(56,189,248,0.06),rgba(167,139,250,0.06));
+border:1px solid rgba(56,189,248,0.2);
+border-radius:16px;padding:48px;
+display:grid;grid-template-columns:1fr 1fr;gap:48px;
+align-items:center;
+}
+@media(max-width:768px){.project-card{grid-template-columns:1fr}}
+.project-label{
+font-family:var(–font-mono);font-size:11px;
+color:var(–purple);letter-spacing:0.2em;text-transform:uppercase;
+margin-bottom:12px;display:block;
+}
+.project-card h3{font-size:1.7rem;font-weight:700;margin-bottom:16px}
+.project-card p{color:var(–muted2);margin-bottom:24px;font-size:0.95rem}
+.demo-interaction{
+background:var(–bg);border-radius:12px;padding:24px;
+border:1px solid var(–border);
+}
+.demo-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(–border)}
+.demo-row:last-child{border-bottom:none}
+.demo-q{font-size:13px;color:var(–muted2)}
+.demo-a{
+font-family:var(–font-mono);font-weight:700;font-size:14px;
+padding:3px 12px;border-radius:6px;
+}
+.demo-yes{background:rgba(52,211,153,0.15);color:var(–green)}
+.demo-no{background:rgba(248,113,113,0.15);color:var(–red)}
+
+/* LEARNING PATH */
+.path-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:4px;margin-top:40px;
+}
+.path-step{
+background:var(–surface);border:1px solid var(–border);
+padding:24px 20px;border-radius:12px;
+text-align:center;position:relative;
+transition:transform 0.2s;
+}
+.path-step:hover{transform:translateY(-4px)}
+.path-step::after{
+content:‘→’;
+position:absolute;right:-14px;top:50%;transform:translateY(-50%);
+color:var(–muted);font-size:18px;z-index:1;
+}
+.path-step:last-child::after{display:none}
+.path-icon{font-size:28px;margin-bottom:12px;display:block}
+.path-step h4{font-size:0.88rem;font-weight:700;margin-bottom:6px}
+.path-step p{font-size:0.78rem;color:var(–muted);line-height:1.5}
+.path-num{
+font-family:var(–font-mono);font-size:10px;
+color:var(–cyan);margin-bottom:8px;display:block;
+}
+
+/* CTA */
+.cta-section{
+background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(167,139,250,0.08));
+border:1px solid rgba(56,189,248,0.15);
+border-radius:24px;padding:80px 48px;
+text-align:center;margin:80px 24px;
+position:relative;overflow:hidden;
+max-width:1100px;margin-left:auto;margin-right:auto;
+}
+.cta-glow{
+position:absolute;top:-100px;left:50%;transform:translateX(-50%);
+width:400px;height:400px;border-radius:50%;
+background:radial-gradient(circle,rgba(56,189,248,0.1),transparent 70%);
+}
+.cta-section h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:20px;position:relative}
+.cta-section p{color:var(–muted2);font-size:1.1rem;max-width:500px;margin:0 auto 40px;position:relative}
+.cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative}
+
+/* CALLOUT */
+.callout{
+border-left:3px solid var(–cyan);
+background:rgba(56,189,248,0.05);
+padding:16px 20px;border-radius:0 8px 8px 0;
+margin:20px 0;font-size:0.93rem;
+}
+.callout.green{border-left-color:var(–green);background:rgba(52,211,153,0.05)}
+.callout.purple{border-left-color:var(–purple);background:rgba(167,139,250,0.05)}
+.callout-label{
+font-family:var(–font-mono);font-size:10px;
+letter-spacing:0.15em;text-transform:uppercase;
+color:var(–cyan);margin-bottom:6px;display:block;
+}
+.callout.green .callout-label{color:var(–green)}
+.callout.purple .callout-label{color:var(–purple)}
+
+/* FOOTER */
+footer{
+border-top:1px solid var(–border);
+padding:48px 24px;text-align:center;
+font-family:var(–font-mono);font-size:12px;color:var(–muted);
+}
+footer a{color:var(–cyan);text-decoration:none}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(24px)}
+to{opacity:1;transform:translateY(0)}
+}
+.reveal{
+opacity:0;transform:translateY(24px);
+transition:opacity 0.7s ease,transform 0.7s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* SEPARATOR */
+.sep{border:none;border-top:1px solid var(–border);margin:0}
+</style>
+
+</head>
+<body>
+
+<!-- PROGRESS -->
+
+<div class="progress" id="prog"></div>
+
+<!-- NAVBAR -->
+
+<nav>
+  <div class="nav-logo">zero<span>://</span>genlayer</div>
+  <ul class="nav-links">
+    <li><a href="#quickstart">Quick Start</a></li>
+    <li><a href="#concepts">Concepts</a></li>
+    <li><a href="#tutorial">Tutorial</a></li>
+    <li><a href="#contract">Contract</a></li>
+    <li><a href="#frontend">Frontend</a></li>
+    <li><a href="#project">Project</a></li>
+  </ul>
+  <a href="https://studio.genlayer.com" target="_blank" class="nav-cta">Open Studio →</a>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      GenLayer Builder Mission · Full Tutorial
+    </div>
+    <h1>
+      Zero to<br>
+      <span class="grad">GenLayer</span><br>
+      🚀
+    </h1>
+    <p class="hero-sub">Learn, Build, Deploy — AI-powered smart contracts in minutes. No Solidity. No oracles. Just Python + AI.</p>
+    <div class="hero-buttons">
+      <a href="#tutorial" class="btn-primary">▶ Start Tutorial</a>
+      <a href="https://studio.genlayer.com" target="_blank" class="btn-outline">🖥 Open Studio</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Tutorial Steps</div></div>
+      <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Install Required</div></div>
+      <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Possibilities</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ QUICK START HUB ═══════════ -->
+
+<section id="quickstart" class="reveal">
+  <div class="section-tag">Quick Start Hub</div>
+  <h2 class="section-title">Everything You Need</h2>
+  <p class="section-lead">All the tools and resources to begin building on GenLayer in one place.</p>
+
+  <div class="hub-grid">
+    <div class="hub-card">
+      <span class="hub-icon">🖥️</span>
+      <h3>GenLayer Studio</h3>
+      <p>Browser-based IDE. Write, deploy, and test your Intelligent Contracts without installing anything.</p>
+      <a href="https://studio.genlayer.com" target="_blank" class="hub-link">Open Studio →</a>
+    </div>
+    <div class="hub-card">
+      <span class="hub-icon">🚰</span>
+      <h3>Testnet Faucet</h3>
+      <p>Get free GEN tokens for the Asimov testnet. Paste your wallet address and tokens arrive in seconds.</p>
+      <a href="https://faucet.genlayer.com" target="_blank" class="hub-link">Get Tokens →</a>
+    </div>
+    <div class="hub-card">
+      <span class="hub-icon">📚</span>
+      <h3>Official Docs</h3>
+      <p>Full API reference, guides, and deep dives into GenLayer's architecture and SDK.</p>
+      <a href="https://docs.genlayer.com" target="_blank" class="hub-link">Read Docs →</a>
+    </div>
+    <div class="hub-card">
+      <span class="hub-icon">⚡</span>
+      <h3>Project Boilerplate</h3>
+      <p>Pre-configured starter with Vite + genlayer-js. Fork it and you're already halfway done.</p>
+      <a href="https://github.com/genlayerlabs/genlayer-project-boilerplate" target="_blank" class="hub-link">Fork on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══════════ CORE CONCEPTS ═══════════ -->
+
+<section id="concepts" class="reveal">
+  <div class="section-tag">Core Concepts</div>
+  <h2 class="section-title">Two Ideas That Change Everything</h2>
+  <p class="section-lead">Before writing code, understand the two breakthroughs that make GenLayer unique.</p>
+
+  <div class="concepts-grid">
+    <!-- Optimistic Democracy -->
+    <div class="concept-card cyan-card">
+      <div class="concept-glow"></div>
+      <span class="concept-num">Concept 01</span>
+      <h3>⚖️ Optimistic Democracy</h3>
+      <p>When your contract calls an AI model, a randomly-selected group of <strong>validators</strong> each run the contract independently — each with their own AI (GPT, LLaMA, Mistral…).</p>
+      <p style="margin-top:12px">One validator is the <strong>Leader</strong>: they run first and propose a result. Other validators verify it. If the majority agree, the result is accepted on-chain.</p>
+      <div class="concept-analogy">
+        <span class="analogy-label">💡 Analogy</span>
+        Like a court: one judge writes the verdict, a panel independently reviews. If the majority agree, it becomes law — fast, fair, trustless.
+      </div>
+    </div>
+
+```
+<!-- Equivalence Principle -->
+<div class="concept-card purple-card">
+  <div class="concept-glow"></div>
+  <span class="concept-num">Concept 02</span>
+  <h3>🔀 Equivalence Principle</h3>
+  <p>Five validators might get five differently-worded LLM responses. "Yes", "Definitely!", "Affirmative" — all mean the same thing but aren't identical strings.</p>
+  <p style="margin-top:12px">The Equivalence Principle defines <strong>what counts as agreement</strong>. You choose the rule in your contract.</p>
+  <div class="concept-analogy">
+    <span class="analogy-label" style="color:var(--purple)">💡 Analogy</span>
+    Like grading exams: two students say the same thing differently. The rule defines whether they both pass.
+  </div>
+</div>
+```
+
+  </div>
+
+  <table class="eq-table" style="margin-top:32px">
+    <thead>
+      <tr>
+        <th>Mode</th>
+        <th>When to Use</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="eq-badge badge-cyan">strict_eq</span></td>
+        <td>Byte-for-byte identical results required</td>
+        <td>Boolean <code>True/False</code>, exact numbers</td>
+      </tr>
+      <tr>
+        <td><span class="eq-badge badge-green">non_comparative</span></td>
+        <td>Each validator checks their own result against a rule</td>
+        <td>"Does the response contain 'YES'?"</td>
+      </tr>
+      <tr>
+        <td><span class="eq-badge badge-purple">comparative</span></td>
+        <td>Second LLM call checks if two results mean the same thing</td>
+        <td>Long-form text, subjective answers</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="sep">
+
+<!-- ═══════════ TUTORIAL STEPS ═══════════ -->
+
+<section id="tutorial" class="reveal">
+  <div class="section-tag">Step-by-Step Tutorial</div>
+  <h2 class="section-title">From Zero to Deployed</h2>
+  <p class="section-lead">No terminal. No installs. Just your browser and 5 steps.</p>
+
+  <div class="steps-wrap">
+    <div class="step-item">
+      <div class="step-left"><div class="step-num-circle">1</div></div>
+      <div class="step-right">
+        <span class="step-tag">Setup</span>
+        <h3>Open GenLayer Studio</h3>
+        <p>Navigate to <a href="https://studio.genlayer.com" target="_blank" style="color:var(--cyan)">studio.genlayer.com</a>. This is your full development environment — a browser-based IDE that runs a GenLayer node in the cloud. No Docker, no npm, no configuration files.</p>
+        <div class="callout" style="margin-top:16px">
+          <span class="callout-label">✅ You'll see</span>
+          A code editor on the left, contract state panel on the right, and transaction logs at the bottom. Test accounts come pre-funded with tokens — no faucet needed.
+        </div>
+      </div>
+    </div>
+
+```
+<div class="step-item">
+  <div class="step-left"><div class="step-num-circle">2</div></div>
+  <div class="step-right">
+    <span class="step-tag">Create</span>
+    <h3>Create a New Contract File</h3>
+    <p>In the left sidebar, click the <strong>"+"</strong> button next to "Contracts". Name your file <code>YesNoOracle.py</code>. The Studio will open a blank Python editor for you.</p>
+  </div>
+</div>
+
+<div class="step-item">
+  <div class="step-left"><div class="step-num-circle">3</div></div>
+  <div class="step-right">
+    <span class="step-tag">Code</span>
+    <h3>Paste the Contract</h3>
+    <p>Copy the complete contract from <a href="#contract" style="color:var(--cyan)">Section 4 below</a> and paste it into the editor. Studio will syntax-highlight it immediately.</p>
+  </div>
+</div>
+
+<div class="step-item">
+  <div class="step-left"><div class="step-num-circle">4</div></div>
+  <div class="step-right">
+    <span class="step-tag">Deploy</span>
+    <h3>Click "Deploy Contract"</h3>
+    <p>In the right panel, click <strong>"Deploy Contract"</strong>. Since our <code>__init__</code> takes no arguments, just confirm. Watch the transaction status change: <strong>PENDING → ACCEPTED → FINALIZED</strong>.</p>
+    <div class="callout green" style="margin-top:16px">
+      <span class="callout-label">🎉 When finalized</span>
+      Your contract address appears at the top of the State panel (looks like <code>0x1a2b3c…</code>). Copy it — you'll need it for the frontend.
+    </div>
+  </div>
+</div>
+
+<div class="step-item">
+  <div class="step-left"><div class="step-num-circle">5</div></div>
+  <div class="step-right">
+    <span class="step-tag">Test</span>
+    <h3>Call a Function in Studio</h3>
+    <p>In the "Execute Transaction" panel, select <code>ask_question</code>, type <code>"Is water wet?"</code> as the argument, and click <strong>"Send Transaction"</strong>. Once finalized, call <code>get_latest()</code> as a view method to see the stored YES/NO result.</p>
+    <div class="callout purple" style="margin-top:16px">
+      <span class="callout-label">💡 Pro tip</span>
+      The "Logs" tab in Studio shows each validator's AI reasoning in real time. Watch the consensus process unfold step by step.
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══════════ CONTRACT ═══════════ -->
+
+<section id="contract" class="reveal">
+  <div class="section-tag">The Intelligent Contract</div>
+  <h2 class="section-title">Full Working Contract</h2>
+  <p class="section-lead">A complete Python Intelligent Contract. Copy it, deploy it, and it works.</p>
+
+  <div class="code-wrap" id="contract-block">
+    <div class="code-header">
+      <div class="code-dots">
+        <div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div>
+      </div>
+      <span class="code-filename">YesNoOracle.py</span>
+      <button class="copy-btn" onclick="copyCode('contract-block',this)">Copy</button>
+    </div>
+    <pre><code id="contract-code"><span class="cm"># { "Depends": "py-genlayer:test" }</span>
+<span class="cm"># This header tells GenVM which SDK version to load.</span>
+
+<span class="kw">from</span> genlayer <span class="kw">import</span> *
+
+<span class="kw">class</span> <span class="de">YesNoOracle</span>(gl.Contract):
+<span class="st">”””
+AI Yes/No Oracle — Intelligent Contract
+Users ask any question. AI answers YES or NO.
+All answers are stored permanently on-chain.
+“””</span>
+
+```
+<span class="cm"># ── State Variables (stored permanently on blockchain) ───────────</span>
+questions:     gl.DynArray[<span class="kw">str</span>]   <span class="cm"># Every question asked</span>
+answers:       gl.DynArray[<span class="kw">bool</span>]  <span class="cm"># YES=True / NO=False</span>
+question_count: <span class="kw">int</span>              <span class="cm"># Total questions answered</span>
+
+<span class="cm"># ── Constructor (called once at deployment) ──────────────────────</span>
+<span class="kw">def</span> <span class="fn">__init__</span>(<span class="kw">self</span>):
+    <span class="kw">self</span>.questions      = gl.DynArray[<span class="kw">str</span>]()
+    <span class="kw">self</span>.answers        = gl.DynArray[<span class="kw">bool</span>]()
+    <span class="kw">self</span>.question_count = <span class="nu">0</span>
+
+<span class="cm"># ── Write Method: ask a question ─────────────────────────────────</span>
+@gl.public.write
+<span class="kw">def</span> <span class="fn">ask_question</span>(<span class="kw">self</span>, question: <span class="kw">str</span>) -> <span class="kw">None</span>:
+    <span class="st">"""Send a question. AI decides YES or NO. Stored on-chain."""</span>
+
+    <span class="cm"># This inner function runs in GenLayer's AI sandbox.</span>
+    <span class="cm"># Each validator executes it independently with their own LLM.</span>
+    <span class="kw">def</span> <span class="fn">call_ai</span>():
+        prompt = <span class="st">f"""You are a concise Yes/No oracle.
+```
+
+The user asks: “{question}”
+Rules:
+
+- Answer ONLY with “YES” or “NO” — nothing else.
+- Base your answer on general knowledge and common sense.
+  “””</span>
+  raw = gl.exec_prompt(prompt)
+  <span class="cm"># Parse to boolean so strict_eq works perfectly</span>
+  <span class="kw">return</span> <span class="st">“YES”</span> <span class="kw">in</span> raw.strip().upper()
+  
+  ```
+    <span class="cm"># Equivalence Principle: all validators must return same boolean</span>
+    ai_answer: <span class="kw">bool</span> = gl.eq_principle_strict_eq(call_ai)
+  
+    <span class="cm"># Store result permanently on-chain</span>
+    <span class="kw">self</span>.questions.append(question)
+    <span class="kw">self</span>.answers.append(ai_answer)
+    <span class="kw">self</span>.question_count += <span class="nu">1</span>
+  ```
+  
+  <span class="cm"># ── View Methods (read-only, free, no transaction needed) ────────</span>
+  @gl.public.view
+  <span class="kw">def</span> <span class="fn">get_answer</span>(<span class="kw">self</span>, index: <span class="kw">int</span>) -> dict:
+  <span class="kw">if</span> index >= <span class="kw">self</span>.question_count:
+  <span class="kw">raise</span> Exception(<span class="st">“Index out of range”</span>)
+  <span class="kw">return</span> {
+  <span class="st">“question”</span>: <span class="kw">self</span>.questions[index],
+  <span class="st">“answer”</span>:   <span class="st">“YES”</span> <span class="kw">if</span> <span class="kw">self</span>.answers[index] <span class="kw">else</span> <span class="st">“NO”</span>,
+  <span class="st">“index”</span>:    index,
+  }
+  
+  @gl.public.view
+  <span class="kw">def</span> <span class="fn">get_latest</span>(<span class="kw">self</span>) -> dict:
+  <span class="kw">if</span> <span class="kw">self</span>.question_count == <span class="nu">0</span>:
+  <span class="kw">return</span> {<span class="st">“question”</span>: <span class="st">“None yet”</span>, <span class="st">“answer”</span>: <span class="st">“N/A”</span>, <span class="st">“index”</span>: -<span class="nu">1</span>}
+  <span class="kw">return</span> <span class="kw">self</span>.get_answer(<span class="kw">self</span>.question_count - <span class="nu">1</span>)
+  
+  @gl.public.view
+  <span class="kw">def</span> <span class="fn">get_all_answers</span>(<span class="kw">self</span>) -> list:
+  <span class="kw">return</span> [<span class="kw">self</span>.get_answer(i) <span class="kw">for</span> i <span class="kw">in</span> range(<span class="kw">self</span>.question_count)]
+  
+  @gl.public.view
+  <span class="kw">def</span> <span class="fn">get_count</span>(<span class="kw">self</span>) -> <span class="kw">int</span>:
+  <span class="kw">return</span> <span class="kw">self</span>.question_count</code></pre>
+  
+  </div>
+  
+  <h3 style="margin-top:40px;font-size:1.3rem;font-weight:700;margin-bottom:20px">Key Concepts in the Contract</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--cyan);margin-bottom:8px">gl.exec_prompt()</div>
+      <p style="font-size:0.88rem;color:var(--muted2)">Sends your prompt to the validator's configured LLM. Each validator uses their own AI model — GenLayer routes it automatically.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--purple);margin-bottom:8px">gl.eq_principle_strict_eq()</div>
+      <p style="font-size:0.88rem;color:var(--muted2)">Wraps your AI function. Runs it in the non-deterministic sandbox and requires all validators to return the exact same boolean.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--green);margin-bottom:8px">gl.DynArray[type]</div>
+      <p style="font-size:0.88rem;color:var(--muted2)">A dynamic array that GenLayer serializes and stores on-chain. Survives between calls forever, unlike a regular Python list.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--orange);margin-bottom:8px">@gl.public.write vs .view</div>
+      <p style="font-size:0.88rem;color:var(--muted2)"><code>.write</code> changes state and requires a transaction. <code>.view</code> is read-only and free — no gas, no signing.</p>
+    </div>
+  </div>
+
+</section>
+
+<hr class="sep">
+
+<!-- ═══════════ FRONTEND ═══════════ -->
+
+<section id="frontend" class="reveal">
+  <div class="section-tag">Frontend Interaction</div>
+  <h2 class="section-title">Connect with genlayer-js</h2>
+  <p class="section-lead">This is how your website talks to the blockchain. Three core functions you'll use in every GenLayer dApp.</p>
+
+  <div class="callout" style="margin-bottom:32px">
+    <span class="callout-label">📦 Install</span>
+    <code>npm install genlayer-js</code> — or fork the <a href="https://github.com/genlayerlabs/genlayer-project-boilerplate" target="_blank" style="color:var(--cyan)">official boilerplate</a> which has it pre-configured.
+  </div>
+
+  <div class="js-grid">
+    <div class="js-card">
+      <div class="js-card-header">📤 writeContract() — Send a Question</div>
+      <pre><code><span class="cm">// Sends a write transaction</span>
+<span class="kw">const</span> txHash = <span class="kw">await</span> client.<span class="fn">writeContract</span>({
+  address:      CONTRACT_ADDRESS,
+  functionName: <span class="st">'ask_question'</span>,
+  args:         [question],
+  value:        <span class="nu">0n</span>,
+});
+
+<span class="cm">// Wait for AI validators to agree</span>
+<span class="kw">await</span> client.<span class="fn">waitForTransactionReceipt</span>({
+hash:     txHash,
+status:   TransactionStatus.FINALIZED,
+retries:  <span class="nu">100</span>,
+interval: <span class="nu">3000</span>,
+});</code></pre>
+</div>
+<div class="js-card">
+<div class="js-card-header">📖 readContract() — Get the Answer</div>
+<pre><code><span class="cm">// Free read — no transaction needed</span>
+<span class="kw">const</span> result = <span class="kw">await</span> client.<span class="fn">readContract</span>({
+address:      CONTRACT_ADDRESS,
+functionName: <span class="st">‘get_latest’</span>,
+args:         [],
+stateStatus:  <span class="st">‘accepted’</span>,
+});
+
+<span class="cm">// Returns:</span>
+<span class="cm">// { question: “Is water wet?”,</span>
+<span class="cm">//   answer: “YES”, index: 0 }</span></code></pre>
+</div>
+
+  </div>
+
+  <!-- Full client setup -->
+
+  <div class="code-wrap" id="frontend-block" style="margin-top:24px">
+    <div class="code-header">
+      <div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div>
+      <span class="code-filename">oracle.js — Full Setup</span>
+      <button class="copy-btn" onclick="copyCode('frontend-block',this)">Copy</button>
+    </div>
+    <pre><code><span class="kw">import</span> { createClient, createAccount } <span class="kw">from</span> <span class="st">'genlayer-js'</span>;
+<span class="kw">import</span> { simulator } <span class="kw">from</span> <span class="st">'genlayer-js/chains'</span>;
+<span class="kw">import</span> { TransactionStatus } <span class="kw">from</span> <span class="st">'genlayer-js/types'</span>;
+
+<span class="cm">// ── Config ──────────────────────────────────────────────</span>
+<span class="kw">const</span> CONTRACT_ADDRESS = <span class="st">‘0xYOUR_CONTRACT_ADDRESS_HERE’</span>;
+
+<span class="cm">// ── Create client connected to Studio simulator ──────────</span>
+<span class="kw">const</span> account = <span class="fn">createAccount</span>();
+<span class="kw">const</span> client  = <span class="fn">createClient</span>({ chain: simulator, account });
+
+<span class="cm">// ── Ask a question ───────────────────────────────────────</span>
+<span class="kw">async function</span> <span class="fn">askQuestion</span>(question) {
+<span class="kw">await</span> client.<span class="fn">initializeConsensusSmartContract</span>();
+<span class="kw">const</span> txHash = <span class="kw">await</span> client.<span class="fn">writeContract</span>({
+address: CONTRACT_ADDRESS, functionName: <span class="st">‘ask_question’</span>,
+args: [question], value: <span class="nu">0n</span>,
+});
+<span class="kw">return</span> client.<span class="fn">waitForTransactionReceipt</span>({
+hash: txHash, status: TransactionStatus.FINALIZED,
+retries: <span class="nu">100</span>, interval: <span class="nu">3000</span>,
+});
+}
+
+<span class="cm">// ── Read the latest answer ───────────────────────────────</span>
+<span class="kw">async function</span> <span class="fn">getLatest</span>() {
+<span class="kw">return</span> client.<span class="fn">readContract</span>({
+address: CONTRACT_ADDRESS, functionName: <span class="st">‘get_latest’</span>,
+args: [], stateStatus: <span class="st">‘accepted’</span>,
+});
+}
+
+<span class="cm">// ── Read all answers ────────────────────────────────────</span>
+<span class="kw">async function</span> <span class="fn">getAllAnswers</span>() {
+<span class="kw">return</span> client.<span class="fn">readContract</span>({
+address: CONTRACT_ADDRESS, functionName: <span class="st">‘get_all_answers’</span>,
+args: [], stateStatus: <span class="st">‘accepted’</span>,
+});
+}</code></pre>
+
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══════════ ARCHITECTURE ═══════════ -->
+
+<section id="architecture" class="reveal">
+  <div class="section-tag">Architecture</div>
+  <h2 class="section-title">How It All Flows</h2>
+  <p class="section-lead">Trace a single question — "Is coffee healthy?" — all the way through the system.</p>
+
+  <div class="arch-flow">
+    <div class="arch-node">
+      <span class="arch-node-icon">👤</span>
+      <div class="arch-node-label">User</div>
+      <div class="arch-node-sub">types question</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node">
+      <span class="arch-node-icon">🌐</span>
+      <div class="arch-node-label">Frontend</div>
+      <div class="arch-node-sub">genlayer-js</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node highlight">
+      <span class="arch-node-icon">📜</span>
+      <div class="arch-node-label">Contract</div>
+      <div class="arch-node-sub">ask_question()</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node">
+      <span class="arch-node-icon">⚙️</span>
+      <div class="arch-node-label">GenVM</div>
+      <div class="arch-node-sub">AI sandbox</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node green-node">
+      <span class="arch-node-icon">🤖</span>
+      <div class="arch-node-label">AI Models</div>
+      <div class="arch-node-sub">LLM per validator</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node green-node">
+      <span class="arch-node-icon">🗳️</span>
+      <div class="arch-node-label">Validators</div>
+      <div class="arch-node-sub">reach consensus</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node highlight">
+      <span class="arch-node-icon">⛓️</span>
+      <div class="arch-node-label">Blockchain</div>
+      <div class="arch-node-sub">stored forever</div>
+    </div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node">
+      <span class="arch-node-icon">✅</span>
+      <div class="arch-node-label">Result</div>
+      <div class="arch-node-sub">YES or NO</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:16px">
+    <div class="callout">
+      <span class="callout-label">Step 1–2: Write Transaction</span>
+      User sends a question. genlayer-js signs and submits a <code>writeContract</code> transaction to the network.
+    </div>
+    <div class="callout green">
+      <span class="callout-label">Step 3–5: AI Consensus</span>
+      Leader validator runs the prompt. Others verify independently. Majority agree on YES/NO boolean using <code>strict_eq</code>.
+    </div>
+    <div class="callout purple">
+      <span class="callout-label">Step 6–7: Finalized</span>
+      Answer committed to chain state. Frontend calls <code>readContract</code> (free) to display the result.
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══════════ MINI PROJECT ═══════════ -->
+
+<section id="project" class="reveal">
+  <div class="section-tag">Mini Project</div>
+  <h2 class="section-title">Build: AI Oracle dApp</h2>
+  <p class="section-lead">The perfect first GenLayer project. Real AI. Real blockchain. Zero centralized servers.</p>
+
+  <div class="project-card">
+    <div>
+      <span class="project-label">Project Idea #1</span>
+      <h3>🔮 AI Yes/No Oracle</h3>
+      <p>Deploy the YesNoOracle contract, build a simple HTML page, and let anyone ask any question. The blockchain AI answers YES or NO — stored permanently, readable by anyone.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="https://studio.genlayer.com" target="_blank" class="btn-primary" style="font-size:13px;padding:10px 20px">Deploy Now</a>
+        <a href="https://github.com/genlayerlabs/genlayer-project-boilerplate" target="_blank" class="btn-outline" style="font-size:13px;padding:10px 20px">Fork Boilerplate</a>
+      </div>
+    </div>
+    <div>
+      <div class="demo-interaction">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px">Live Oracle Responses</div>
+        <div class="demo-row">
+          <span class="demo-q">Is the sun larger than the moon?</span>
+          <span class="demo-a demo-yes">YES ✅</span>
+        </div>
+        <div class="demo-row">
+          <span class="demo-q">Is the Great Wall visible from space?</span>
+          <span class="demo-a demo-no">NO ❌</span>
+        </div>
+        <div class="demo-row">
+          <span class="demo-q">Is Python popular?</span>
+          <span class="demo-a demo-yes">YES ✅</span>
+        </div>
+        <div class="demo-row">
+          <span class="demo-q">Can humans breathe underwater?</span>
+          <span class="demo-a demo-no">NO ❌</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout green" style="margin-top:24px">
+    <span class="callout-label">💡 Extend This Project</span>
+    Add web data fetching with <code>gl.get_webpage(url)</code> to let the oracle answer questions about live events. Add a prediction market layer. Build a dispute resolution module. The oracle you just built is a foundation for countless dApps.
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ═══════════ LEARNING PATH ═══════════ -->
+
+<section id="path" class="reveal">
+  <div class="section-tag">Learning Path</div>
+  <h2 class="section-title">Where to Go Next</h2>
+  <p class="section-lead">You've got the foundation. Here's the road ahead.</p>
+
+  <div class="path-grid">
+    <div class="path-step">
+      <span class="path-num">01</span>
+      <span class="path-icon">🌱</span>
+      <h4>Beginner</h4>
+      <p>Complete this tutorial. Deploy YesNoOracle. Understand Optimistic Democracy.</p>
+    </div>
+    <div class="path-step">
+      <span class="path-num">02</span>
+      <span class="path-icon">📜</span>
+      <h4>Contracts</h4>
+      <p>Write contracts with web fetching. Use <code>comparative</code> equivalence. Add complex state.</p>
+    </div>
+    <div class="path-step">
+      <span class="path-num">03</span>
+      <span class="path-icon">🚀</span>
+      <h4>Deploy</h4>
+      <p>Deploy to Asimov Testnet. Connect MetaMask. Use the faucet for real testnet tokens.</p>
+    </div>
+    <div class="path-step">
+      <span class="path-num">04</span>
+      <span class="path-icon">🌐</span>
+      <h4>Frontend</h4>
+      <p>Build a full React app with genlayer-js. Handle wallet connections. Display live state.</p>
+    </div>
+    <div class="path-step">
+      <span class="path-num">05</span>
+      <span class="path-icon">🏗️</span>
+      <h4>Build Your Own</h4>
+      <p>Create something original. Submit to the Builder Portal. Join the GenLayer ecosystem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+
+<div class="cta-section reveal">
+  <div class="cta-glow"></div>
+  <h2>Now You're Ready to Build 🚀</h2>
+  <p>You understand Optimistic Democracy, the Equivalence Principle, and you've deployed a real AI-powered smart contract. The rest is up to you.</p>
+  <div class="cta-buttons">
+    <a href="https://studio.genlayer.com" target="_blank" class="btn-primary">🖥 Open Studio</a>
+    <a href="https://docs.genlayer.com" target="_blank" class="btn-outline">📚 Read Docs</a>
+    <a href="https://portal.genlayer.foundation" target="_blank" class="btn-outline">🏆 Builder Portal</a>
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+
+<footer>
+  <p>Built for the <a href="https://portal.genlayer.foundation/#/builders/contributions" target="_blank">GenLayer Builder Mission</a> · Zero to GenLayer Tutorial</p>
+  <p style="margin-top:8px;opacity:0.5">
+    <a href="https://studio.genlayer.com" target="_blank">Studio</a> ·
+    <a href="https://docs.genlayer.com" target="_blank">Docs</a> ·
+    <a href="https://faucet.genlayer.com" target="_blank">Faucet</a> ·
+    <a href="https://github.com/genlayerlabs/genlayer-js" target="_blank">genlayer-js</a>
+  </p>
+  <p style="margin-top:16px;opacity:0.3">Build the intelligent blockchain future 🧠⛓️</p>
+</footer>
+
+<script>
+// PROGRESS BAR
+window.addEventListener('scroll',()=>{
+  const el=document.documentElement;
+  const s=el.scrollTop||document.body.scrollTop;
+  const t=el.scrollHeight-el.clientHeight;
+  document.getElementById('prog').style.width=(s/t*100)+'%';
+});
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// COPY BUTTONS
+function copyCode(blockId, btn) {
+  const block = document.getElementById(blockId);
+  const code = block.querySelector('code');
+  const text = code.innerText || code.textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000);
+  });
+}
+
+// NAV ACTIVE
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+const secObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.style.color='');
+      const a=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if(a)a.style.color='var(--cyan)';
+    }
+  });
+},{threshold:0.4});
+sections.forEach(s=>secObs.observe(s));
+</script>
+
+</body>
+</html>
