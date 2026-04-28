@@ -529,6 +529,344 @@ transition:opacity 0.7s ease,transform 0.7s ease;
 
 /* SEPARATOR */
 .sep{border:none;border-top:1px solid var(–border);margin:0}
+
+/* ── LIVE DEMO ──────────────────────────────────────────── */
+.demo-shell {
+background: var(–surface);
+border: 1px solid var(–border2);
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 0 60px rgba(56,189,248,0.06);
+}
+
+/* terminal-style top bar */
+.demo-shell-bar {
+background: #0a0f1a;
+padding: 12px 20px;
+display: flex;
+align-items: center;
+gap: 14px;
+border-bottom: 1px solid var(–border);
+}
+.demo-shell-dots { display:flex; gap:6px; }
+.demo-shell-dot  { width:10px; height:10px; border-radius:50%; }
+.demo-shell-dot:nth-child(1){background:#ff5f56}
+.demo-shell-dot:nth-child(2){background:#ffbd2e}
+.demo-shell-dot:nth-child(3){background:#27c93f}
+.demo-shell-title {
+font-family: var(–font-mono);
+font-size: 12px;
+color: var(–muted2);
+letter-spacing: 0.05em;
+flex: 1;
+text-align: center;
+}
+.demo-shell-badge {
+font-family: var(–font-mono);
+font-size: 10px;
+padding: 3px 10px;
+border-radius: 100px;
+background: rgba(52,211,153,0.12);
+color: var(–green);
+border: 1px solid rgba(52,211,153,0.25);
+letter-spacing: 0.08em;
+}
+
+/* input area */
+.demo-input-wrap {
+padding: 32px 32px 24px;
+border-bottom: 1px solid var(–border);
+}
+.demo-input-label {
+font-family: var(–font-mono);
+font-size: 10px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 12px;
+display: block;
+}
+.demo-input-row {
+display: flex;
+gap: 12px;
+align-items: stretch;
+}
+#oracle-input {
+flex: 1;
+background: var(–bg);
+border: 1px solid var(–border2);
+border-radius: 8px;
+padding: 14px 18px;
+color: var(–text);
+font-family: ‘Space Grotesk’, sans-serif;
+font-size: 15px;
+outline: none;
+transition: border-color 0.2s, box-shadow 0.2s;
+min-width: 0;
+}
+#oracle-input::placeholder { color: var(–muted); }
+#oracle-input:focus {
+border-color: var(–cyan2);
+box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
+}
+#oracle-input:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+}
+#oracle-btn {
+background: linear-gradient(135deg, var(–cyan2), #0369a1);
+color: #fff;
+border: none;
+border-radius: 8px;
+padding: 14px 28px;
+font-family: ‘Space Grotesk’, sans-serif;
+font-size: 14px;
+font-weight: 700;
+cursor: pointer;
+white-space: nowrap;
+transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+box-shadow: 0 0 20px rgba(56,189,248,0.2);
+display: flex;
+align-items: center;
+gap: 8px;
+}
+#oracle-btn:hover:not(:disabled) {
+opacity: 0.9;
+transform: translateY(-1px);
+box-shadow: 0 0 30px rgba(56,189,248,0.3);
+}
+#oracle-btn:disabled {
+opacity: 0.45;
+cursor: not-allowed;
+transform: none;
+}
+.demo-hint {
+margin-top: 10px;
+font-size: 12px;
+color: var(–muted);
+font-family: var(–font-mono);
+}
+.demo-hint a { color: var(–cyan); text-decoration: none; }
+
+/* status pipeline */
+.demo-status-wrap {
+padding: 24px 32px;
+border-bottom: 1px solid var(–border);
+display: flex;
+align-items: center;
+gap: 0;
+flex-wrap: wrap;
+min-height: 72px;
+}
+.status-step {
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 13px;
+font-family: var(–font-mono);
+color: var(–muted);
+transition: color 0.3s;
+}
+.status-step.active  { color: var(–cyan); }
+.status-step.done    { color: var(–green); }
+.status-step.errored { color: var(–red); }
+.status-icon {
+width: 26px; height: 26px;
+border-radius: 50%;
+border: 1.5px solid currentColor;
+display: flex; align-items: center; justify-content: center;
+font-size: 11px;
+flex-shrink: 0;
+transition: background 0.3s, border-color 0.3s;
+}
+.status-step.active  .status-icon { background: rgba(56,189,248,0.12); }
+.status-step.done    .status-icon { background: rgba(52,211,153,0.12); border-color: var(–green); }
+.status-step.errored .status-icon { background: rgba(248,113,113,0.12); border-color: var(–red); }
+.status-label { letter-spacing: 0.05em; }
+.status-connector {
+width: 28px; height: 1.5px;
+background: var(–border);
+margin: 0 4px;
+flex-shrink: 0;
+transition: background 0.4s;
+}
+.status-connector.lit { background: var(–green); }
+
+/* spinner */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+display: inline-block;
+width: 12px; height: 12px;
+border: 2px solid rgba(56,189,248,0.3);
+border-top-color: var(–cyan);
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+flex-shrink: 0;
+}
+
+/* result panel */
+.demo-result-wrap {
+padding: 28px 32px 32px;
+min-height: 120px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.demo-result-idle {
+text-align: center;
+color: var(–muted);
+font-size: 14px;
+font-family: var(–font-mono);
+opacity: 0.5;
+}
+.demo-result-card {
+width: 100%;
+display: none;
+animation: fadeResultIn 0.5s ease both;
+}
+@keyframes fadeResultIn {
+from { opacity: 0; transform: translateY(10px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+.demo-result-card.visible { display: block; }
+
+.result-answer-row {
+display: flex;
+align-items: center;
+gap: 20px;
+margin-bottom: 20px;
+flex-wrap: wrap;
+}
+.result-badge {
+font-size: 3.2rem;
+font-weight: 700;
+font-family: ‘Space Grotesk’, sans-serif;
+line-height: 1;
+letter-spacing: -0.02em;
+transition: color 0.3s;
+}
+.result-badge.yes { color: var(–green); }
+.result-badge.no  { color: var(–red); }
+
+.result-meta {
+flex: 1;
+min-width: 160px;
+}
+.result-question-label {
+font-family: var(–font-mono);
+font-size: 10px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 4px;
+}
+.result-question-text {
+font-size: 15px;
+font-weight: 500;
+color: var(–text);
+line-height: 1.5;
+}
+
+.result-chain-row {
+display: flex;
+align-items: center;
+gap: 10px;
+font-family: var(–font-mono);
+font-size: 11px;
+color: var(–muted);
+flex-wrap: wrap;
+}
+.result-tag {
+display: inline-flex;
+align-items: center;
+gap: 5px;
+padding: 3px 10px;
+border-radius: 100px;
+border: 1px solid var(–border2);
+font-size: 10px;
+letter-spacing: 0.05em;
+}
+.result-tag.green { color: var(–green); border-color: rgba(52,211,153,0.25); background: rgba(52,211,153,0.07); }
+.result-tag.cyan  { color: var(–cyan);  border-color: rgba(56,189,248,0.25); background: rgba(56,189,248,0.07); }
+.result-tx {
+color: var(–muted);
+cursor: pointer;
+transition: color 0.2s;
+font-size: 11px;
+}
+.result-tx:hover { color: var(–cyan); }
+
+/* history list */
+.demo-history-wrap {
+border-top: 1px solid var(–border);
+padding: 0 32px 8px;
+display: none;
+}
+.demo-history-wrap.visible { display: block; }
+.demo-history-title {
+font-family: var(–font-mono);
+font-size: 10px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–muted);
+padding: 16px 0 10px;
+}
+.history-item {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 9px 0;
+border-bottom: 1px solid var(–border);
+font-size: 13px;
+animation: fadeResultIn 0.4s ease both;
+}
+.history-item:last-child { border-bottom: none; }
+.history-index {
+font-family: var(–font-mono);
+font-size: 10px;
+color: var(–muted);
+min-width: 20px;
+}
+.history-q { flex: 1; color: var(–muted2); }
+.history-a {
+font-family: var(–font-mono);
+font-size: 12px;
+font-weight: 700;
+padding: 2px 10px;
+border-radius: 4px;
+}
+.history-a.yes { color: var(–green); background: rgba(52,211,153,0.1); }
+.history-a.no  { color: var(–red);   background: rgba(248,113,113,0.1); }
+
+/* error state */
+.demo-error {
+display: none;
+margin: 0 32px 20px;
+background: rgba(248,113,113,0.07);
+border: 1px solid rgba(248,113,113,0.25);
+border-radius: 8px;
+padding: 14px 18px;
+font-size: 13px;
+color: var(–red);
+font-family: var(–font-mono);
+}
+.demo-error.visible { display: block; }
+.demo-error-title { font-weight: 700; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* address config notice */
+.config-notice {
+display: none;
+margin: 0 32px 20px;
+background: rgba(251,146,60,0.07);
+border: 1px solid rgba(251,146,60,0.3);
+border-radius: 8px;
+padding: 14px 18px;
+font-size: 13px;
+color: var(–orange);
+font-family: var(–font-mono);
+}
+.config-notice.visible { display: block; }
+.config-notice strong { color: var(–orange); }
 </style>
 
 </head>
@@ -548,7 +886,7 @@ transition:opacity 0.7s ease,transform 0.7s ease;
     <li><a href="#tutorial">Tutorial</a></li>
     <li><a href="#contract">Contract</a></li>
     <li><a href="#frontend">Frontend</a></li>
-    <li><a href="#project">Project</a></li>
+    <li><a href="#project">Live Demo</a></li>
   </ul>
   <a href="https://studio.genlayer.com" target="_blank" class="nav-cta">Open Studio →</a>
 </nav>
@@ -1055,49 +1393,118 @@ args: [], stateStatus: <span class="st">‘accepted’</span>,
 
 <hr class="sep">
 
-<!-- ═══════════ MINI PROJECT ═══════════ -->
+<!-- ═══════════ LIVE DEMO ═══════════ -->
 
 <section id="project" class="reveal">
-  <div class="section-tag">Mini Project</div>
-  <h2 class="section-title">Build: AI Oracle dApp</h2>
-  <p class="section-lead">The perfect first GenLayer project. Real AI. Real blockchain. Zero centralized servers.</p>
+  <div class="section-tag">Live Demo</div>
+  <h2 class="section-title">Try It: AI Oracle <span style="color:var(--cyan)">On-Chain</span></h2>
+  <p class="section-lead">This is a real dApp — not a mock. Questions go to a deployed YesNoOracle Intelligent Contract. AI validators reach consensus. Results live on the blockchain.</p>
 
-  <div class="project-card">
-    <div>
-      <span class="project-label">Project Idea #1</span>
-      <h3>🔮 AI Yes/No Oracle</h3>
-      <p>Deploy the YesNoOracle contract, build a simple HTML page, and let anyone ask any question. The blockchain AI answers YES or NO — stored permanently, readable by anyone.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="https://studio.genlayer.com" target="_blank" class="btn-primary" style="font-size:13px;padding:10px 20px">Deploy Now</a>
-        <a href="https://github.com/genlayerlabs/genlayer-project-boilerplate" target="_blank" class="btn-outline" style="font-size:13px;padding:10px 20px">Fork Boilerplate</a>
-      </div>
-    </div>
-    <div>
-      <div class="demo-interaction">
-        <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px">Live Oracle Responses</div>
-        <div class="demo-row">
-          <span class="demo-q">Is the sun larger than the moon?</span>
-          <span class="demo-a demo-yes">YES ✅</span>
-        </div>
-        <div class="demo-row">
-          <span class="demo-q">Is the Great Wall visible from space?</span>
-          <span class="demo-a demo-no">NO ❌</span>
-        </div>
-        <div class="demo-row">
-          <span class="demo-q">Is Python popular?</span>
-          <span class="demo-a demo-yes">YES ✅</span>
-        </div>
-        <div class="demo-row">
-          <span class="demo-q">Can humans breathe underwater?</span>
-          <span class="demo-a demo-no">NO ❌</span>
-        </div>
-      </div>
-    </div>
+  <!-- CONFIG NOTICE — shown when address is placeholder -->
+
+  <div class="config-notice visible" id="config-notice">
+    <strong>⚙️ SETUP REQUIRED:</strong> Open this file, find <code>CONTRACT_ADDRESS</code> near the bottom, and paste your deployed contract address from GenLayer Studio. Then this demo goes live.
   </div>
 
+  <!-- THE SHELL -->
+
+  <div class="demo-shell">
+
+```
+<!-- title bar -->
+<div class="demo-shell-bar">
+  <div class="demo-shell-dots">
+    <div class="demo-shell-dot"></div>
+    <div class="demo-shell-dot"></div>
+    <div class="demo-shell-dot"></div>
+  </div>
+  <span class="demo-shell-title">🔮 YesNoOracle — GenLayer Simulator</span>
+  <span class="demo-shell-badge" id="network-badge">● SIMULATOR</span>
+</div>
+
+<!-- input row -->
+<div class="demo-input-wrap">
+  <span class="demo-input-label">Ask the Oracle anything</span>
+  <div class="demo-input-row">
+    <input
+      id="oracle-input"
+      type="text"
+      placeholder="Is the Earth older than the Sun?"
+      maxlength="300"
+      autocomplete="off"
+    />
+    <button id="oracle-btn" onclick="window.oracleAsk()">
+      <span id="btn-icon">🔮</span>
+      <span id="btn-label">Ask AI</span>
+    </button>
+  </div>
+  <div class="demo-hint">
+    Results are stored on-chain permanently · powered by <a href="https://docs.genlayer.com" target="_blank">GenLayer Intelligent Contracts</a>
+  </div>
+</div>
+
+<!-- 4-step status pipeline -->
+<div class="demo-status-wrap" id="status-wrap">
+  <div class="status-step" id="st-idle">
+    <div class="status-icon">○</div>
+    <span class="status-label">idle</span>
+  </div>
+  <div class="status-connector" id="con-1"></div>
+  <div class="status-step" id="st-send">
+    <div class="status-icon">1</div>
+    <span class="status-label">sending</span>
+  </div>
+  <div class="status-connector" id="con-2"></div>
+  <div class="status-step" id="st-wait">
+    <div class="status-icon">2</div>
+    <span class="status-label">consensus</span>
+  </div>
+  <div class="status-connector" id="con-3"></div>
+  <div class="status-step" id="st-done">
+    <div class="status-icon">3</div>
+    <span class="status-label">finalized</span>
+  </div>
+</div>
+
+<!-- error box -->
+<div class="demo-error" id="demo-error">
+  <div class="demo-error-title">⚠ Error</div>
+  <div id="demo-error-msg">Something went wrong.</div>
+</div>
+
+<!-- result card -->
+<div class="demo-result-wrap" id="result-wrap">
+  <div class="demo-result-idle" id="result-idle">
+    Waiting for your first question…
+  </div>
+  <div class="demo-result-card" id="result-card">
+    <div class="result-answer-row">
+      <div class="result-badge" id="result-badge">—</div>
+      <div class="result-meta">
+        <div class="result-question-label">Question asked</div>
+        <div class="result-question-text" id="result-question">—</div>
+      </div>
+    </div>
+    <div class="result-chain-row">
+      <span class="result-tag green">✓ Finalized</span>
+      <span class="result-tag cyan">⛓ On-chain</span>
+      <span class="result-tx" id="result-tx" title="Transaction hash">tx: —</span>
+    </div>
+  </div>
+</div>
+
+<!-- history -->
+<div class="demo-history-wrap" id="history-wrap">
+  <div class="demo-history-title">On-chain history · this session</div>
+  <div id="history-list"></div>
+</div>
+```
+
+  </div><!-- /demo-shell -->
+
   <div class="callout green" style="margin-top:24px">
-    <span class="callout-label">💡 Extend This Project</span>
-    Add web data fetching with <code>gl.get_webpage(url)</code> to let the oracle answer questions about live events. Add a prediction market layer. Build a dispute resolution module. The oracle you just built is a foundation for countless dApps.
+    <span class="callout-label">💡 What's happening under the hood</span>
+    Each click calls <code>writeContract()</code> via genlayer-js. Multiple AI validators independently run <code>gl.exec_prompt()</code> with your question, then <code>gl.eq_principle_strict_eq()</code> ensures they agree on the same boolean before committing to chain state.
   </div>
 </section>
 
@@ -1212,6 +1619,253 @@ const secObs=new IntersectionObserver(entries=>{
   });
 },{threshold:0.4});
 sections.forEach(s=>secObs.observe(s));
+</script>
+
+<!-- ── LIVE ORACLE dApp — genlayer-js via CDN ─────────────────────────
+     HOW TO ACTIVATE:
+     1. Deploy YesNoOracle.py in https://studio.genlayer.com
+     2. Copy the contract address (looks like 0x...)
+     3. Paste it as the value of CONTRACT_ADDRESS below
+     4. Open this file in a browser — the demo is live!
+──────────────────────────────────────────────────────────────────── -->
+
+<script type="module">
+// ── ✏️  PASTE YOUR CONTRACT ADDRESS HERE ──────────────────────────
+const CONTRACT_ADDRESS = '0xYOUR_CONTRACT_ADDRESS_HERE';
+// ──────────────────────────────────────────────────────────────────
+
+// ── CDN imports (genlayer-js via esm.sh) ─────────────────────────
+import { createClient, createAccount }
+  from 'https://esm.sh/genlayer-js@latest';
+import { simulator }
+  from 'https://esm.sh/genlayer-js@latest/chains';
+import { TransactionStatus }
+  from 'https://esm.sh/genlayer-js@latest/types';
+
+// ── Detect placeholder address ────────────────────────────────────
+const IS_CONFIGURED = !CONTRACT_ADDRESS.includes('YOUR_CONTRACT');
+if (IS_CONFIGURED) {
+  document.getElementById('config-notice').classList.remove('visible');
+}
+
+// ── Init client + account (local ephemeral keypair for signing) ───
+const account = createAccount();
+const client  = createClient({ chain: simulator, account });
+
+// ── UI refs ───────────────────────────────────────────────────────
+const input      = document.getElementById('oracle-input');
+const btn        = document.getElementById('oracle-btn');
+const btnIcon    = document.getElementById('btn-icon');
+const btnLabel   = document.getElementById('btn-label');
+
+const stIdle     = document.getElementById('st-idle');
+const stSend     = document.getElementById('st-send');
+const stWait     = document.getElementById('st-wait');
+const stDone     = document.getElementById('st-done');
+const con1       = document.getElementById('con-1');
+const con2       = document.getElementById('con-2');
+const con3       = document.getElementById('con-3');
+
+const resultIdle = document.getElementById('result-idle');
+const resultCard = document.getElementById('result-card');
+const resultBadge   = document.getElementById('result-badge');
+const resultQuestion= document.getElementById('result-question');
+const resultTx      = document.getElementById('result-tx');
+
+const errorBox   = document.getElementById('demo-error');
+const errorMsg   = document.getElementById('demo-error-msg');
+const historyWrap= document.getElementById('history-wrap');
+const historyList= document.getElementById('history-list');
+
+// ── Session history (stored in memory) ───────────────────────────
+let sessionHistory = [];
+
+// ── Status pipeline helper ────────────────────────────────────────
+//   state: 'idle' | 'sending' | 'waiting' | 'done' | 'error'
+function setStatus(state, extra) {
+  // reset all
+  [stIdle,stSend,stWait,stDone].forEach(el=>{
+    el.classList.remove('active','done','errored');
+  });
+  [con1,con2,con3].forEach(c=>c.classList.remove('lit'));
+
+  if (state === 'idle') {
+    stIdle.classList.add('active');
+    stIdle.querySelector('.status-icon').innerHTML = '○';
+  }
+  if (state === 'sending') {
+    stIdle.classList.add('done');
+    stIdle.querySelector('.status-icon').innerHTML = '✓';
+    stSend.classList.add('active');
+    stSend.querySelector('.status-icon').innerHTML = '<span class="spinner"></span>';
+    con1.classList.add('lit');
+  }
+  if (state === 'waiting') {
+    stIdle.classList.add('done'); stIdle.querySelector('.status-icon').innerHTML='✓';
+    stSend.classList.add('done'); stSend.querySelector('.status-icon').innerHTML='✓';
+    stWait.classList.add('active');
+    stWait.querySelector('.status-icon').innerHTML='<span class="spinner"></span>';
+    con1.classList.add('lit'); con2.classList.add('lit');
+  }
+  if (state === 'done') {
+    [stIdle,stSend,stWait,stDone].forEach(el=>{
+      el.classList.add('done');
+      el.querySelector('.status-icon').innerHTML='✓';
+    });
+    [con1,con2,con3].forEach(c=>c.classList.add('lit'));
+  }
+  if (state === 'error') {
+    stIdle.classList.add('done'); stIdle.querySelector('.status-icon').innerHTML='✓';
+    if (extra >= 1) { stSend.classList.add('done'); stSend.querySelector('.status-icon').innerHTML='✓'; con1.classList.add('lit'); }
+    const errTarget = extra >= 2 ? stWait : stSend;
+    errTarget.classList.remove('done');
+    errTarget.classList.add('errored');
+    errTarget.querySelector('.status-icon').innerHTML='✗';
+  }
+}
+
+// ── Show / hide error box ─────────────────────────────────────────
+function showError(msg, stage) {
+  errorMsg.textContent = msg;
+  errorBox.classList.add('visible');
+  setStatus('error', stage || 0);
+}
+function clearError() {
+  errorBox.classList.remove('visible');
+}
+
+// ── Disable / enable UI ───────────────────────────────────────────
+function setLoading(loading) {
+  btn.disabled  = loading;
+  input.disabled = loading;
+  if (loading) {
+    btnIcon.textContent  = '';
+    btnLabel.textContent = 'Working…';
+  } else {
+    btnIcon.textContent  = '🔮';
+    btnLabel.textContent = 'Ask AI';
+  }
+}
+
+// ── Render the result card ────────────────────────────────────────
+function showResult(question, answer, txHash) {
+  const isYes = answer === 'YES';
+  resultBadge.textContent = isYes ? 'YES ✅' : 'NO ❌';
+  resultBadge.className   = 'result-badge ' + (isYes ? 'yes' : 'no');
+  resultQuestion.textContent = question;
+  resultTx.textContent    = 'tx: ' + (txHash ? txHash.slice(0,10)+'…' : 'n/a');
+  resultTx.title          = txHash || '';
+
+  resultIdle.style.display = 'none';
+  resultCard.classList.add('visible');
+}
+
+// ── Render history list ───────────────────────────────────────────
+function renderHistory() {
+  if (sessionHistory.length === 0) return;
+  historyWrap.classList.add('visible');
+  historyList.innerHTML = '';
+  // newest first
+  [...sessionHistory].reverse().forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'history-item';
+    const isYes = item.answer === 'YES';
+    div.innerHTML = `
+      <span class="history-index">#${sessionHistory.length - i}</span>
+      <span class="history-q">${escHtml(item.question)}</span>
+      <span class="history-a ${isYes?'yes':'no'}">${item.answer}</span>
+    `;
+    historyList.appendChild(div);
+  });
+}
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── MAIN: ask the oracle ──────────────────────────────────────────
+async function oracleAsk() {
+  const question = input.value.trim();
+
+  // Basic validation
+  if (!question) {
+    input.focus();
+    input.style.borderColor = 'var(--red)';
+    setTimeout(()=>{ input.style.borderColor = ''; }, 1200);
+    return;
+  }
+  if (!IS_CONFIGURED) {
+    showError('Paste your contract address into CONTRACT_ADDRESS in the script block first.', 0);
+    return;
+  }
+
+  clearError();
+  setLoading(true);
+
+  let txHash = null;
+
+  try {
+    // ── Step 1: Initialize consensus + send tx ────────────────────
+    setStatus('sending');
+    await client.initializeConsensusSmartContract();
+
+    txHash = await client.writeContract({
+      address:      CONTRACT_ADDRESS,
+      functionName: 'ask_question',
+      args:         [question],
+      value:        0n,
+    });
+
+    // ── Step 2: Wait for AI validators to finalize ────────────────
+    setStatus('waiting');
+    await client.waitForTransactionReceipt({
+      hash:     txHash,
+      status:   TransactionStatus.FINALIZED,
+      retries:  120,   // up to ~6 min
+      interval: 3000,
+    });
+
+    // ── Step 3: Read the latest on-chain result ───────────────────
+    setStatus('done');
+    const result = await client.readContract({
+      address:      CONTRACT_ADDRESS,
+      functionName: 'get_latest',
+      args:         [],
+      stateStatus:  'accepted',
+    });
+
+    const answer = result.answer; // "YES" or "NO"
+
+    // Persist to session history
+    sessionHistory.push({ question, answer, txHash });
+
+    // Update UI
+    showResult(question, answer, txHash);
+    renderHistory();
+    input.value = '';
+
+  } catch (err) {
+    console.error('[YesNoOracle]', err);
+    const stage = txHash ? 2 : 1;
+    const msg = err?.message
+      ? err.message.slice(0, 180)
+      : 'Transaction failed. Check the Studio logs for details.';
+    showError(msg, stage);
+  } finally {
+    setLoading(false);
+  }
+}
+
+// ── Attach to window so onclick="" in HTML can find it ───────────
+window.oracleAsk = oracleAsk;
+
+// ── Allow Enter key to submit ────────────────────────────────────
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !btn.disabled) oracleAsk();
+});
+
+// ── Initial state ────────────────────────────────────────────────
+setStatus('idle');
+
 </script>
 
 </body>
